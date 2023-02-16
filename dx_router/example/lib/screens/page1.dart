@@ -6,7 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_cubit/get_cubit.dart';
 
-@GenerateDxRoute()
+@GenerateDxRoute(
+  cubits: [
+    InjectCubit(
+      cubit: CounterCubit,
+      injectionMode: InjectionMode.put,
+    ),
+    InjectCubit(
+      cubit: ColorCubit,
+      injectionMode: InjectionMode.put,
+    ),
+  ],
+)
 class Page1 extends StatelessWidget {
   final String var1;
   final int i;

@@ -84,7 +84,7 @@ class DxAppRouting {
     if (annonatedClass.params!.isEmpty) {
       switchCaseCodeBuffer.writeln('''
       return MaterialPageRoute(
-          builder: (_) => const ${annonatedClass.className}(),
+          builder: (_) =>  ${_blocWrapper(annonatedClass, 'const ${annonatedClass.className}(),')}
           settings: DxRouter().getCurrentRouteSetting(routeSettings),
         );
       ''');
@@ -94,7 +94,10 @@ class DxAppRouting {
       switchCaseCodeBuffer.writeln('''
       Dx${annonatedClass.className} $argumentNameVar = routeSettings.arguments as Dx${annonatedClass.className};
       return MaterialPageRoute(
-          builder: (_) => ${annonatedClass.className}${_getArguments(annonatedClass.params, argumentNameVar)},
+          builder: (_) => ${_blocWrapper(
+        annonatedClass,
+        '${annonatedClass.className}${_getArguments(annonatedClass.params, argumentNameVar)}',
+      )}
           settings: DxRouter().getCurrentRouteSetting(routeSettings),
         );
       ''');
@@ -116,5 +119,20 @@ class DxAppRouting {
       ciBuff.writeln(markedCubits[idx].importPath);
     }
     return ciBuff.toString();
+  }
+
+  String _blocWrapper(DxAnnotatedClass dxAnnotatedClass, String classInstance) {
+    if (dxAnnotatedClass.cubits.isEmpty) return classInstance;
+    StringBuffer blocWrapperBuffer = StringBuffer();
+    blocWrapperBuffer.writeln('MultiBlocProvider(');
+    blocWrapperBuffer.writeln('providers: [');
+    for (int idx = 0; idx < dxAnnotatedClass.cubits.length; idx++) {
+      blocWrapperBuffer.writeln('BlocProvider.value(');
+      blocWrapperBuffer.writeln('value : ${dxAnnotatedClass.cubits[idx]},),');
+    }
+    blocWrapperBuffer.writeln('],');
+    blocWrapperBuffer.writeln('child : $classInstance');
+    blocWrapperBuffer.writeln('),');
+    return blocWrapperBuffer.toString();
   }
 }
