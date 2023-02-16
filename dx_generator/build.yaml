@@ -1,0 +1,9 @@
+builders:
+  route_generator:
+    import: "package:dx_generator/builder.dart"
+    builder_factories: ["dxRouteBuilder"]
+    build_extensions:
+      { r'$lib$': ["dx_gen/routes.dx.dart", "dx_gen/app_routing.dx.dart"] }
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
