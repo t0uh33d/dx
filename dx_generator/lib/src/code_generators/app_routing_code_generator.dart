@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 
 import 'routes.dx.dart';
 
+$routerPackageImport
+
 class DxAppRouting {
   static final DxAppRouting _dxAppRouting = DxAppRouting._internal();
 
