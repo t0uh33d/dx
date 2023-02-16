@@ -3,6 +3,7 @@
 library DxRouterGenerator;
 
 import 'dart:async';
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:build/build.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:glob/glob.dart';
@@ -34,6 +35,8 @@ class DxBuilder extends Builder {
     List<DxAnnotatedClass> annotatedClasses =
         await _getDxAnnotatedClasses(buildStep);
 
+    List<MarkedCubit> markedCubits = await _getMarkedCubits(buildStep);
+
     // code generator class instances
     DxRoutesGenerator dxRoutesGenerator = DxRoutesGenerator();
     DxAppRoutingGenerator dxAppRoutingGenerator = DxAppRoutingGenerator();
@@ -48,13 +51,12 @@ class DxBuilder extends Builder {
       loggerColor: LoggerColor.green,
     );
 
-    String dxAppRoutingClassCode =
-        dxAppRoutingGenerator.generate(annotatedClasses);
+    String dxAppRoutingClassCode = dxAppRoutingGenerator
+        .generate(annotatedClasses, markedCubits: markedCubits);
 
     AssetId appRoutingFile = AssetId(buildStep.inputId.package,
         path.join('lib', 'dx_gen', 'app_routing.dx.dart'));
     await buildStep.writeAsString(appRoutingFile, dxAppRoutingClassCode);
-    Logger.log("Formatting the generated code..");
 
     Logger.log("SUCCESS!!!!", loggerColor: LoggerColor.green);
   }

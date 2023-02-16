@@ -11,12 +11,17 @@ class DxRouteClassVisitor extends SimpleElementVisitor {
   @override
   void visitConstructorElement(ConstructorElement element) {
     className = element.type.returnType;
+    List<ParameterElement> parameters = element.parameters;
+    for (int idx = 0; idx < parameters.length; idx++) {
+      if (parameters[idx].name == 'key') continue;
+      params![parameters[idx].name] = parameters[idx].type;
+    }
   }
 
-  @override
-  visitFieldElement(FieldElement element) {
-    params![element.name] = element.type;
-  }
+  // @override
+  // visitFieldElement(FieldElement element) {
+  //   params![element.name] = element.type;
+  // }
 }
 
 class DxAnnotatedClass {
@@ -26,6 +31,7 @@ class DxAnnotatedClass {
   final String importPath;
   final String relativePath;
   final bool isInitialRoute;
+  final List<String> cubits;
   DxAnnotatedClass({
     required this.className,
     required this.params,
@@ -33,5 +39,21 @@ class DxAnnotatedClass {
     required this.importPath,
     required this.relativePath,
     required this.isInitialRoute,
+    required this.cubits,
+  });
+}
+
+class MarkedCubit {
+  final String className;
+  final Map<String, DartType>? params;
+  final ConstantReader constantReader;
+  final String importPath;
+  final String relativePath;
+  MarkedCubit({
+    required this.className,
+    required this.params,
+    required this.constantReader,
+    required this.importPath,
+    required this.relativePath,
   });
 }
