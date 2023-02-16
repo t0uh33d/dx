@@ -175,14 +175,14 @@ packages:
       path: "../../dx_generator"
       relative: true
     source: path
-    version: "1.0.0"
+    version: "2.0.0"
   dx_router:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0+1"
+    version: "1.0.0+2"
   fake_async:
     dependency: transitive
     description:
