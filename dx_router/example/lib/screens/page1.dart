@@ -18,22 +18,29 @@ class Page1 extends StatelessWidget {
   double d;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(var1),
-            ElevatedButton(
-                onPressed: () {
-                  DxRouter.pop(context);
-                },
-                child: Text("POP")),
-            Text(checkBool.toString()),
-            Text(d.toString()),
-            Text(i.toString()),
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pop();
+        DxRouter.pop(context);
+        return true;
+      },
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(var1),
+              ElevatedButton(
+                  onPressed: () {
+                    DxRouter.pop(context);
+                  },
+                  child: Text("POP")),
+              Text(checkBool.toString()),
+              Text(d.toString()),
+              Text(i.toString()),
+            ],
+          ),
         ),
       ),
     );

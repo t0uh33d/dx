@@ -28,13 +28,14 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   DxRouter.to(
-                      DxPage1(
-                        var1: 'This is the best router',
-                        checkBool: false,
-                        d: 1.8667,
-                        i: 1,
-                      ),
-                      context);
+                    DxPage1(
+                      var1: 'This is the best router',
+                      checkBool: false,
+                      d: 1.8667,
+                      i: 1,
+                    ),
+                    context,
+                  );
                 },
                 child: const Text(
                   "To Page 1, with arguments",
