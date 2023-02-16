@@ -1,4 +1,3 @@
-import 'package:dx_generator/dx_generator.dart';
 import 'package:example/dx_gen/app_routing.dx.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';

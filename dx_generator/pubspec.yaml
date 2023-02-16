@@ -1,7 +1,7 @@
 name: dx_generator
-description: A new Flutter package project.
+description: Code generator for dx_router
 version: 1.0.0
-homepage:
+homepage: https://github.com/t0uh33d/dx
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -12,6 +12,7 @@ dependencies:
   analyzer: ">=4.6.0 <6.0.0"
   glob: ^2.1.1
   ansicolor: ^2.0.1
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:
