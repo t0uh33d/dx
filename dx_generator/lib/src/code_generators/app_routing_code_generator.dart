@@ -22,14 +22,30 @@ class DxAppRouting {
   DxAppRouting._internal();
 
   static Route generateAppRoute(RouteSettings routeSettings) {
-    routeSettings = DxRouterTemp().currRouteSetting(routeSettings);
-    print("GOING TO ROUTE : \${routeSettings.name!}");
-    DxRouterTemp().pushToStack(routeSettings);
+    routeSettings = DxRouter().currRouteSetting(routeSettings,dxRouteConstructorMap);
     ${_generateSwitchCase(dxAnnonatedClasses)}
    }
  }
+
+ ${_generateMap(dxAnnonatedClasses)}
 ''';
     return topLevelCode;
+  }
+
+  String _generateMap(List<DxAnnotatedClass> dxAnnonatedClasses) {
+    StringBuffer mpBuffer = StringBuffer();
+    mpBuffer
+        .writeln('Map<String, DxRouteConstructor?> dxRouteConstructorMap = {');
+    for (int idx = 0; idx < dxAnnonatedClasses.length; idx++) {
+      String className = 'Dx${dxAnnonatedClasses[idx].className}';
+      String val = dxAnnonatedClasses[idx].params != null &&
+              dxAnnonatedClasses[idx].params!.isNotEmpty
+          ? '$className.fromEnc'
+          : 'null';
+      mpBuffer.writeln('$className.path : $val,');
+    }
+    mpBuffer.writeln('};');
+    return mpBuffer.toString();
   }
 
   String _generateSwitchCase(List<DxAnnotatedClass> dxAnnonatedClasses) {
@@ -62,7 +78,7 @@ class DxAppRouting {
       switchCaseCodeBuffer.writeln('''
       return MaterialPageRoute(
           builder: (_) => const ${annonatedClass.className}(),
-          settings: DxRouterTemp().getCurrentRouteSetting(routeSettings),
+          settings: DxRouter().getCurrentRouteSetting(routeSettings),
         );
       ''');
     } else {

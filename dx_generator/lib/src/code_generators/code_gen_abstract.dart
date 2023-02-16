@@ -12,8 +12,7 @@ abstract class CodeGenerator {
 */
 """;
 
-  String routerPackageImport =
-      "import 'package:dynamic_router_package/dynamic_router_package.dart';";
+  String routerPackageImport = "import 'package:dx_router/dx_router.dart';";
 
   String annotatedClassImports(
     List<DxAnnotatedClass> dxAnnonatedClasses,
