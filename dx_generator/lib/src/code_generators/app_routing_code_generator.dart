@@ -90,7 +90,7 @@ class DxAppRouting {
       Dx${annonatedClass.className} $argumentNameVar = routeSettings.arguments as Dx${annonatedClass.className};
       return MaterialPageRoute(
           builder: (_) => ${annonatedClass.className}${_getArguments(annonatedClass.params, argumentNameVar)},
-          settings: DxRouterTemp().getCurrentRouteSetting(routeSettings),
+          settings: DxRouter().getCurrentRouteSetting(routeSettings),
         );
       ''');
     }
