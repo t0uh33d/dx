@@ -45,5 +45,8 @@ abstract class CodeGenerator {
     }
   }
 
-  String generate(List<DxAnnotatedClass> dxAnnonatedClasses) => modifyComment;
+  String generate(
+    List<DxAnnotatedClass> dxAnnonatedClasses,
+  ) =>
+      modifyComment;
 }
