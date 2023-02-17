@@ -6,6 +6,17 @@
 
 
 import 'package:dx_router/dx_router.dart';
+class DxMultiColorCubitScreen extends DxRoute {
+DxMultiColorCubitScreen();
+static const String path = "/MultiColorCubitScreen";
+@override
+bool get hasParams => false;
+@override
+String get actualPath => path;
+@override
+String? toUrlFormat() => actualPath;
+}
+
 class DxHomePage extends DxRoute {
 DxHomePage();
 static const String path = "/";
@@ -44,6 +55,37 @@ i : uri.queryParameters.containsKey('i') ? int.tryParse(uri.queryParameters['i']
 );
 }
 
+}
+
+class DxColorCubitPlayer extends DxRoute {
+final int index;
+DxColorCubitPlayer({
+required this.index,
+});
+static const String path = "/ColorCubitPlayer";
+@override
+bool get hasParams => true;
+@override
+String get actualPath => path;
+@override
+String? toUrlFormat() => compressedPath({'index' : index.toString() ,},actualPath,);
+factory DxColorCubitPlayer.fromEnc(Uri uri) {
+return DxColorCubitPlayer(
+index : uri.queryParameters.containsKey('index') ? int.tryParse(uri.queryParameters['index']!) ?? -1 : -1,
+);
+}
+
+}
+
+class DxDemoPage extends DxRoute {
+DxDemoPage();
+static const String path = "/DemoPage";
+@override
+bool get hasParams => false;
+@override
+String get actualPath => path;
+@override
+String? toUrlFormat() => actualPath;
 }
 
 

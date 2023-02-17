@@ -81,14 +81,17 @@ extension LibraryHelpers on DxBuilder {
         String injectionMode = _injectionMode(
             dartObjects[idx].getField('injectionMode').toString());
         String? id = _id(dartObjects[idx].getField('id').toString());
+        String enableAutoCreate =
+            dartObjects[idx].getField('enableAutoCreate').toString();
         String c = 'GetCubit().';
         if (injectionMode == "put") {
           c +=
               "put($cubitType()${id != null && id.isNotEmpty ? ',id : \'${_idParser(id, className)}\'' : ''})";
         } else {
           c +=
-              "find<$cubitType>(${id != null && id.isNotEmpty ? 'id : \'${_idParser(id, className)}\'' : ''})";
+              "find<$cubitType>(${id != null && id.isNotEmpty ? 'id : \'${_idParser(id, className)}\'' : ''}${_autoCreate(enableAutoCreate, cubitType)})";
         }
+
         cubits.add(c);
       }
     }
@@ -103,6 +106,17 @@ extension LibraryHelpers on DxBuilder {
   String _injectionMode(String str) {
     final RegExp regex = RegExp(r"_name = String \('(\w+)'\)");
     return regex.firstMatch(str)!.group(1)!;
+  }
+
+  String? _autoCreate(String str, String cubitType) {
+    final RegExp boolRegex = RegExp(r"bool \((\S*)\)");
+    final String? extractedValue = boolRegex.firstMatch(str)?.group(1)!;
+    if (extractedValue == null) return '';
+    if (extractedValue.toLowerCase().contains('true')) {
+      return ', autoCreate : true, onAutoCreate : $cubitType(),';
+    } else {
+      return '';
+    }
   }
 
   String? _id(String str) {

@@ -16,10 +16,12 @@ class InjectCubit {
   final Type cubit;
   final InjectionMode injectionMode;
   final String? id;
+  final bool enableAutoCreate;
   const InjectCubit({
     required this.cubit,
     required this.injectionMode,
     this.id,
+    this.enableAutoCreate = false,
   });
 }
 

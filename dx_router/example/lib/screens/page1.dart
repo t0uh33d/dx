@@ -2,6 +2,7 @@ import 'package:dx_generator/dx_generator.dart';
 import 'package:dx_router/dx_router.dart';
 import 'package:example/cubits/color_cubit.dart';
 import 'package:example/cubits/counter_cubit.dart';
+import 'package:example/dx_gen/routes.dx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_cubit/get_cubit.dart';
@@ -10,10 +11,6 @@ import 'package:get_cubit/get_cubit.dart';
   cubits: [
     InjectCubit(
       cubit: CounterCubit,
-      injectionMode: InjectionMode.put,
-    ),
-    InjectCubit(
-      cubit: ColorCubit,
       injectionMode: InjectionMode.put,
     ),
   ],
@@ -30,7 +27,7 @@ class Page1 extends StatelessWidget {
     required this.d,
     required this.i,
   });
-  ColorCubit colorCubit = GetCubit().find<ColorCubit>();
+
   CounterCubit counterCubit = GetCubit().find<CounterCubit>();
 
   @override
@@ -47,29 +44,23 @@ class Page1 extends StatelessWidget {
                   DxRouter.pop(context);
                 },
                 child: const Text("POP")),
+            ElevatedButton(
+                onPressed: () {
+                  DxRouter.to(DxDemoPage(), context);
+                },
+                child: const Text("Go to demo page")),
             Text(checkBool.toString()),
             Text(d.toString()),
             Text(i.toString()),
             const SizedBox(height: 10),
-            BlocBuilder<ColorCubit, Color>(
-              builder: (context, state) {
-                return InkWell(
-                  onTap: () => colorCubit.random(),
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    color: state,
-                    child: const Center(
-                      child: Text(
-                        'Click me to change color',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
             const SizedBox(height: 10),
+            const Text(
+                "(Multiple cubit handling and passing instances between screens)"),
+            ElevatedButton(
+                onPressed: () {
+                  DxRouter.to(DxMultiColorCubitScreen(), context);
+                },
+                child: const Text("Color cubit screen")),
             Wrap(
               spacing: 2,
               children: [
