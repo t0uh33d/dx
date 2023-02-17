@@ -1,4 +1,5 @@
 import 'package:dx_generator/dx_generator.dart';
+import 'package:dx_router/dx_router.dart';
 import 'package:example/cubits/color_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,28 +34,34 @@ class _ColorCubitPlayerState extends State<ColorCubitPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          BlocBuilder<ColorCubit, Color>(
-            builder: (context, state) {
-              return InkWell(
-                onTap: () => colorCubit.random(),
-                child: Container(
-                  height: 200,
-                  // width: 100,
-                  color: state,
-                  child: Center(
-                    child: Text(
-                      'Block ${widget.index} \n Click me to change color',
-                      style: const TextStyle(color: Colors.white),
+    return WillPopScope(
+      onWillPop: () async {
+        DxRouter.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            BlocBuilder<ColorCubit, Color>(
+              builder: (context, state) {
+                return InkWell(
+                  onTap: () => colorCubit.random(),
+                  child: Container(
+                    height: 200,
+                    // width: 100,
+                    color: state,
+                    child: Center(
+                      child: Text(
+                        'Block ${widget.index} \n Click me to change color',
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

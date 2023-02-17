@@ -71,7 +71,7 @@ class DxAppRouting {
                 BlocProvider.value(
                   value: GetCubit().find<ColorCubit>(
                     id: '${colorcubitplayerArguments.index}',
-                    autoCreate: false,
+                    autoCreate: true,
                     onAutoCreate: ColorCubit(),
                   ),
                 ),

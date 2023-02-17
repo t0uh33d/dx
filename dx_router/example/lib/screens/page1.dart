@@ -32,58 +32,64 @@ class Page1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(var1),
-            ElevatedButton(
-                onPressed: () {
-                  DxRouter.pop(context);
-                },
-                child: const Text("POP")),
-            ElevatedButton(
-                onPressed: () {
-                  DxRouter.to(DxDemoPage(), context);
-                },
-                child: const Text("Go to demo page")),
-            Text(checkBool.toString()),
-            Text(d.toString()),
-            Text(i.toString()),
-            const SizedBox(height: 10),
-            const SizedBox(height: 10),
-            const Text(
-                "(Multiple cubit handling and passing instances between screens)"),
-            ElevatedButton(
-                onPressed: () {
-                  DxRouter.to(DxMultiColorCubitScreen(), context);
-                },
-                child: const Text("Color cubit screen")),
-            Wrap(
-              spacing: 2,
-              children: [
-                ElevatedButton(
-                    onPressed: () => counterCubit.dec(),
-                    child: const Text("dec")),
-                BlocBuilder<CounterCubit, int>(
-                  builder: (context, state) {
-                    return Text(
-                      '$state',
-                      style: const TextStyle(fontSize: 22),
-                    );
+    return WillPopScope(
+      onWillPop: () async {
+        DxRouter.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(var1),
+              ElevatedButton(
+                  onPressed: () {
+                    DxRouter.pop(context);
                   },
-                ),
-                ElevatedButton(
-                    onPressed: () => counterCubit.inc(),
-                    child: const Text("inc")),
-                ElevatedButton(
-                    onPressed: () => counterCubit.reset(),
-                    child: const Text("reset")),
-              ],
-            ),
-          ],
+                  child: const Text("POP")),
+              ElevatedButton(
+                  onPressed: () {
+                    DxRouter.to(DxDemoPage(), context);
+                  },
+                  child: const Text("Go to demo page")),
+              Text(checkBool.toString()),
+              Text(d.toString()),
+              Text(i.toString()),
+              const SizedBox(height: 10),
+              const SizedBox(height: 10),
+              const Text(
+                  "(Multiple cubit handling and passing instances between screens)"),
+              ElevatedButton(
+                  onPressed: () {
+                    DxRouter.to(DxMultiColorCubitScreen(), context);
+                  },
+                  child: const Text("Color cubit screen")),
+              Wrap(
+                spacing: 2,
+                children: [
+                  ElevatedButton(
+                      onPressed: () => counterCubit.dec(),
+                      child: const Text("dec")),
+                  BlocBuilder<CounterCubit, int>(
+                    builder: (context, state) {
+                      return Text(
+                        '$state',
+                        style: const TextStyle(fontSize: 22),
+                      );
+                    },
+                  ),
+                  ElevatedButton(
+                      onPressed: () => counterCubit.inc(),
+                      child: const Text("inc")),
+                  ElevatedButton(
+                      onPressed: () => counterCubit.reset(),
+                      child: const Text("reset")),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:dx_generator/dx_generator.dart';
+import 'package:dx_router/dx_router.dart';
 import 'package:example/cubits/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,28 +18,34 @@ class _DemoPageState extends State<DemoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            // spacing: 2,
-            children: [
-              ElevatedButton(
-                  onPressed: () => counterCubit.dec(),
-                  child: const Text("dec")),
-              BlocProvider.value(
-                value: counterCubit,
-                child: _counter(),
-              ),
-              ElevatedButton(
-                  onPressed: () => counterCubit.inc(),
-                  child: const Text("inc")),
-              ElevatedButton(
-                  onPressed: () => counterCubit.reset(),
-                  child: const Text("reset")),
-            ],
-          ),
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        DxRouter.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            Row(
+              // spacing: 2,
+              children: [
+                ElevatedButton(
+                    onPressed: () => counterCubit.dec(),
+                    child: const Text("dec")),
+                BlocProvider.value(
+                  value: counterCubit,
+                  child: _counter(),
+                ),
+                ElevatedButton(
+                    onPressed: () => counterCubit.inc(),
+                    child: const Text("inc")),
+                ElevatedButton(
+                    onPressed: () => counterCubit.reset(),
+                    child: const Text("reset")),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

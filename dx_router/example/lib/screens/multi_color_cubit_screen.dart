@@ -18,17 +18,23 @@ class MultiColorCubitScreen extends StatefulWidget {
 class _MultiColorCubitScreenState extends State<MultiColorCubitScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          ColorCubit colorCubit =
-              GetCubit().put(ColorCubit(), id: index.toString());
-          return BlocProvider.value(
-            value: colorCubit,
-            child: colorCubitBlock(colorCubit, index),
-          );
-        },
+    return WillPopScope(
+      onWillPop: () async {
+        DxRouter.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            ColorCubit colorCubit =
+                GetCubit().put(ColorCubit(), id: index.toString());
+            return BlocProvider.value(
+              value: colorCubit,
+              child: colorCubitBlock(colorCubit, index),
+            );
+          },
+        ),
       ),
     );
   }
