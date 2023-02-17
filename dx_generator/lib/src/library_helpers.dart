@@ -36,4 +36,34 @@ extension LibraryHelpers on DxBuilder {
     }
     return dxAnnotatedClasses;
   }
+
+  Future<List<MarkedCubit>> _getMarkedCubits(BuildStep buildStep) async {
+    Glob glob = Glob('lib/**.dart');
+    List<AssetId> assets = await buildStep.findAssets(glob).toList();
+    List<MarkedCubit> markedCubits = [];
+    for (int idx = 0; idx < assets.length; idx++) {
+      LibraryElement libraryElement =
+          await _getLibraryElement(buildStep, assets[idx]);
+      LibraryReader libraryReader = LibraryReader(libraryElement);
+
+      List<AnnotatedElement> annotatedElements = libraryReader
+          .annotatedWith(const TypeChecker.fromRuntime(MarkCubitForDxRoute))
+          .toList();
+
+      for (var ele in annotatedElements) {
+        DxRouteClassVisitor dxRouteClassVisior = DxRouteClassVisitor();
+        ele.element.visitChildren(dxRouteClassVisior);
+        MarkedCubit dxAnnonatedClass = MarkedCubit(
+          className: dxRouteClassVisior.className.toString(),
+          constantReader: ele.annotation,
+          params: dxRouteClassVisior.params,
+          importPath:
+              "import 'package:${assets[idx].path.replaceAll('lib', assets[idx].package)}';",
+          relativePath: assets[idx].path,
+        );
+        markedCubits.add(dxAnnonatedClass);
+      }
+    }
+    return markedCubits;
+  }
 }
