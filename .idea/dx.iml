@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/dx_router/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/dx_router/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/dx_router/build" />
+      <excludeFolder url="file://$MODULE_DIR$/dx_router/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/dx_router/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/dx_router/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/dx_generator/build" />
+      <excludeFolder url="file://$MODULE_DIR$/dx_generator/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/dx_generator/.pub" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
