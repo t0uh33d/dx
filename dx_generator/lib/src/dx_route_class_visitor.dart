@@ -31,6 +31,7 @@ class DxAnnotatedClass {
   final String importPath;
   final String relativePath;
   final bool isInitialRoute;
+  final List<String> cubits;
   DxAnnotatedClass({
     required this.className,
     required this.params,
@@ -38,6 +39,7 @@ class DxAnnotatedClass {
     required this.importPath,
     required this.relativePath,
     required this.isInitialRoute,
+    required this.cubits,
   });
 }
 

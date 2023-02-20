@@ -3,6 +3,7 @@
 library DxRouterGenerator;
 
 import 'dart:async';
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:build/build.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:glob/glob.dart';
@@ -56,31 +57,7 @@ class DxBuilder extends Builder {
     AssetId appRoutingFile = AssetId(buildStep.inputId.package,
         path.join('lib', 'dx_gen', 'app_routing.dx.dart'));
     await buildStep.writeAsString(appRoutingFile, dxAppRoutingClassCode);
-    Logger.log("Formatting the generated code..");
-    markedCubits.forEach((element) => Logger.log(
-        "${element.className} ${element.importPath}",
-        loggerColor: LoggerColor.yellow));
+
     Logger.log("SUCCESS!!!!", loggerColor: LoggerColor.green);
   }
 }
-
-
-//  return MaterialPageRoute(
-//           builder: (_) => MultiBlocProvider(
-//             providers: [
-//               BlocProvider.value(
-//                 value: GetCubit().put(CounterCubit()),
-//               ),
-//               BlocProvider.value(
-//                 value: GetCubit().put(ColorCubit()),
-//               ),
-//             ],
-//             child: Page1(
-//               var1: page1Arguments.var1,
-//               i: page1Arguments.i,
-//               checkBool: page1Arguments.checkBool,
-//               d: page1Arguments.d,
-//             ),
-//           ),
-//           settings: DxRouter().getCurrentRouteSetting(routeSettings),
-//         );
