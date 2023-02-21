@@ -84,7 +84,7 @@ class DxAppRouting {
     if (annonatedClass.params!.isEmpty) {
       switchCaseCodeBuffer.writeln('''
       return MaterialPageRoute(
-          builder: (_) =>  ${_blocWrapper(annonatedClass, 'const ${annonatedClass.className}(),')}
+          builder: (_) =>  ${_blocWrapper(annonatedClass, '${annonatedClass.className}(),')}
           settings: DxRouter().getCurrentRouteSetting(routeSettings),
         );
       ''');
