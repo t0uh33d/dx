@@ -7,6 +7,7 @@ import 'dart:convert';
 part 'abstracts.dart';
 part 'route_stack.dart';
 part 'typedefs.dart';
+part 'router_ext.dart';
 
 class DxRouter {
   static final DxRouter _dxRouter = DxRouter._interal();
@@ -16,6 +17,8 @@ class DxRouter {
   DxRouter._interal();
 
   static final _DxRouteStack _dxRouteStack = _DxRouteStack();
+
+  static final Map<String, String> _routeMp = {};
 
   void _pushToStack(RouteSettings routeSettings) {
     if (routeSettings.name == '/') return;
@@ -39,6 +42,24 @@ class DxRouter {
     }
   }
 
+  static void popUntil(String dxScreenPath, BuildContext context) {
+    if (_dxRouteStack.popUntil(dxScreenPath)) {
+      Navigator.popUntil(
+        context,
+        ModalRoute.withName(_routeMp[dxScreenPath]!),
+      );
+    }
+  }
+
+  static void popAndPush<T extends DxRoute>(T route, BuildContext context) {
+    if (_dxRouteStack.pop() != null) {
+      Navigator.of(context).popAndPushNamed(
+        route.actualPath,
+        arguments: route,
+      );
+    }
+  }
+
   RouteSettings getCurrentRouteSetting(RouteSettings routeSettings) {
     return RouteSettings(
       name: _dxRouteStack.getCurrentPath(),
@@ -50,6 +71,7 @@ class DxRouter {
       Map<String, DxRouteConstructor?> dxRouteConstructorMap) {
     RouteSettings crs = _currRouteSetting(routeSettings, dxRouteConstructorMap);
     _pushToStack(crs);
+    _routeMp[crs.name!] = _dxRouteStack.getCurrentPath();
     return crs;
   }
 

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_cubit/get_cubit.dart';
 
+import '../dx_gen/routes.dx.dart';
+
 @GenerateDxRoute(cubits: [
   InjectCubit(
     cubit: ColorCubit,
@@ -60,6 +62,11 @@ class _ColorCubitPlayerState extends State<ColorCubitPlayer> {
                 );
               },
             ),
+            ElevatedButton(
+                onPressed: () {
+                  context.dxPopUntil(DxHomePage.path);
+                },
+                child: const Text("pop until page 1")),
           ],
         ),
       ),

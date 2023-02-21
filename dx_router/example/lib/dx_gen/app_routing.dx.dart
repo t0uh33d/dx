@@ -31,6 +31,7 @@ class DxAppRouting {
   static Route generateAppRoute(RouteSettings routeSettings) {
     routeSettings =
         DxRouter().currRouteSetting(routeSettings, dxRouteConstructorMap);
+    print('GOING TO : ${routeSettings.name}');
     switch (routeSettings.name) {
       case DxMultiColorCubitScreen.path:
         return MaterialPageRoute(

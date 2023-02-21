@@ -21,14 +21,15 @@ class _DxRouteStack {
     _rsp = -1;
   }
 
-  void popUntil(String path) {
-    if (!_canPop(path)) return;
+  bool popUntil(String path) {
+    if (!_canPop(path)) return false;
     int idx = _stack.length - 1;
     for (; idx >= 0; idx--) {
       if (_stack[idx] == path) break;
       _stack.removeLast();
     }
     _rsp = idx;
+    return true;
   }
 
   bool _canPop(String path) =>

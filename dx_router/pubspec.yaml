@@ -1,6 +1,6 @@
 name: dx_router
 description: DX Router is a Flutter package that simplifies named routes and deeplinking with automated URL encoding. It also supports browser reloads for Flutter web, reducing manual coding and streamlining the development process.
-version: 1.0.0+2
+version: 1.0.0+3
 homepage: https://github.com/t0uh33d/dx
 
 environment:
